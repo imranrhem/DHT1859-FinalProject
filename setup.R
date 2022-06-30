@@ -34,3 +34,4 @@ liver_data2 <- liver_data %>%
 
 liver_data2[c("ESS.binary", "PSQI.binary", "AIS.binary")] <- lapply(liver_data2[c("ESS.binary", "PSQI.binary", "AIS.binary")], factor)
 
+liver_data3 <- na.omit(liver_data2)
