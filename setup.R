@@ -34,3 +34,10 @@ liver_data2 <- liver_data %>%
 
 liver_data2[c("ESS.binary", "PSQI.binary", "AIS.binary")] <- lapply(liver_data2[c("ESS.binary", "PSQI.binary", "AIS.binary")], factor)
 
+nrow(liver_data2) / 15
+
+table(liver_data2$ESS.binary) / 15
+table(liver_data2$PSQI.binary) / 15
+table(liver_data2$AIS.binary) / 15
+table(liver_data2$Berlin.Sleepiness.Scale)/15
+
