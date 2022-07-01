@@ -1,9 +1,5 @@
 # Using backwards selection model 
-# numerical is sample size, cat = number of __ in the smallest group
 
-## use liver_data3 for comparing liver_data2 for the inital summary investigation
-## use that equation for your second model for all future models 
-## use formula when creating the models 
 
 library(car)
 
