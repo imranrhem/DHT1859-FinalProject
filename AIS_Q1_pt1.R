@@ -1,5 +1,7 @@
 #ATHENS prevalence
 
+library(dplyr)
+
 # Total prevalence of sleep disorder in the entire dataset
 
 total_sleepdis <- liver_data2$AIS.binary == "1" | liver_data2$ESS.binary == "1" | 
@@ -35,18 +37,23 @@ BSS_total <- sum(BSS, na.rm = TRUE)
 BSS_prev <- BSS_total / (nrow(liver_data2) - sum(is.na(BSS)))
 
 # Sensitivity, specificity, PPV, and NPV of AIS in relation to PSQI
-AandP = liver_data2$AIS.binary == "1" & liver_data2$PSQI.binary == "1"
+PSQI_AIS <- liver_data2 %>%
+  drop_na(c("PSQI.binary", "AIS.binary"))
+AandP = PSQI_AIS$AIS.binary == "1" & PSQI_AIS$PSQI.binary == "1"
 AandP_total = sum(AandP, na.rm = TRUE)
+table(liver_data2$AIS.binary == "1" & liver_data2$PSQI.binary == "1")
 AandP_prev = AandP_total / (nrow(liver_data2) - sum(is.na(AandP)))
-
+length(AandP)
+sum(AandP, na.rm = TRUE)
+(nrow(liver_data2) - sum(is.na(AandP)))
 AP_sensitivity = (AandP_prev*AIS_prev) / PSQI_prev # P(AIS|PSQI) = P(PSQI+|AIS+)*P(AIS) / P(PSQI)
 AP_specificity = ((1-AandP_prev)*(1-AIS_prev)) / (1-PSQI_prev) #P(AIS-|PSQI-) = P(PSQI-|AIS-)*P(AIS-) / P(PSQI-)
 AP_PPV = (AP_sensitivity*PSQI_prev) / AIS_prev  #P(PSQI+|AIS+) = P(AIS+|PSQI+)*P(PSQI) / P(AIS)
 AP_NPV = (AP_specificity*(1-PSQI_prev)) / (1-AIS_prev) #P(PSQI-|AIS-) = P(AIS-|PSQI-)*P(PSQI-) / P(AIS-)
 
 # Sensitivity, specificity, PPV, and NPV of AIS in relation to ESS
-AandE = liver_data2$AIS.binary == "1" & liver_data2$ESS.binary == "1"
-AandE_total = sum(AndE, na.rm = TRUE)
+AandE = liver_data2$AIS.binary == "1" & liver_data2$ESS.binary == "1" 
+AandE_total = sum(AndE, na.rm = TRUE) #total counts
 AandE_prev = AndE_total / (nrow(liver_data2) - sum(is.na(AndE)))
 
 AE_sensitivity = (AandE_prev*AIS_prev) / ESS_prev # P(AIS|ESS) = P(ESS+|AIS+)*P(AIS) / P(ESS)
