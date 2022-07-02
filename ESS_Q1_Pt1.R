@@ -11,9 +11,9 @@ prop.table(table(ESS.binary))
 
 # prevalence of sleep disturbance when using ESS = 0.2669323
 
-#### Calculate PPV of ESS in relation to each test ####
+#### Calculate Sensitivty of ESS in relation to each test ####
 
-#### ESS PPV in relation to  PSQI ####
+#### ESS Sensitivity in relation to  PSQI ####
 
 # Probability of having a positive result on ESS, given a positive result on PSQI
 # P(ESS+|PSQI+) = P(PSQI+ & ESS+)|P(PSQI+)
@@ -47,9 +47,9 @@ prop.table(table(liver_data2$PSQI.binary))
 
 ESSp_PSQIp <- 0.1899441/0.5464481
 ESSp_PSQIp
-# The PPV of ESS in relation to the PSQI test is 0.3475977
+# The sensitivity of ESS in relation to the PSQI test is 0.3475977
 
-#### ESS PPV in relation to BSS ####
+#### ESS sensitivity in relation to BSS ####
 
 # Probability of having a positive result on ESS, given a positive result on BSS
 # P(ESS+|BSS+) = P(BSS+ & ESS+)|P(BSS+)
@@ -85,9 +85,9 @@ length(which(Berlin.Sleepiness.Scale == 1 & ESS.binary == 1))
 ESSp_BSSp <- 0.1485944/0.389313 
 
 # P(ESS+|BSS+) = 0.3816836
-# The PPV for ESS in relation to the BSS test is 0.3816836
+# The sensitivity for ESS in relation to the BSS test is 0.3816836
 
-#### Calculate PPV of ESS in relation to AIS ####
+#### Calculate sensitivity of ESS in relation to AIS ####
 
 # Probability of having a positive result on ESS, given a positive result on BSS
 # P(ESS+|AIS+) = P(AIS+ & ESS+)|P(AIS+)
@@ -122,11 +122,11 @@ ESSp_AISp <- 0.184/0.5534351
 ESSp_AISp
 
 # P(ESS+|AIS+) = 0.332469
-# The PPV for ESS in relation to the AIS test is 0.332469
+# The sensitivity for ESS in relation to the AIS test is 0.332469
 
-#### Calculate NPV of ESS in relation to all other tests ####
+#### Calculate Specificity of ESS in relation to all other tests ####
 
-#### NPV of of ESS in relation to PSQI ####
+#### Specificity of of ESS in relation to PSQI ####
 
 #P(ESS-|PSQI-) = P(PSQI- & ESS-)|P(PSQI-)
 
@@ -152,7 +152,7 @@ prop.table(table(PSQI.binary))
 ESSn_PSQIn <- 0.3798883 / 0.452514
 
 # P(ESS-|PSQI-) = 0.8395062
-# The NPV of ESS in relation to PSQI is 0.8395062
+# The specificity of ESS in relation to PSQI is 0.8395062
 
 
 
