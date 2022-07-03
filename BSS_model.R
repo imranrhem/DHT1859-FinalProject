@@ -37,6 +37,8 @@ liver_data2[c("ESS.binary", "PSQI.binary", "AIS.binary")] <- lapply(liver_data2[
 liver_data3 <- na.omit(liver_data2)
 library(car)
 
+summary(liver_data2$Berlin.Sleepiness.Scale)
+
 Berlin_model1 <- glm(Berlin.Sleepiness.Scale ~ Gender + Age + BMI + Time.from.transplant + Liver.Diagnosis + 
                  Recurrence.of.disease + Rejection.graft.dysfunction + Any.fibrosis +
                  Renal.Failure + Depression + Corticoid, data= liver_data2, family = "binomial")
@@ -115,6 +117,29 @@ Berlin_model10 <- glm(Berlin.Sleepiness.Scale ~ BMI +
 summary(Berlin_model10)
 vif(Berlin_model10)
 anova(Berlin_model9, Berlin_model10, test = "Chisq")  #p = 0.1899
+
+#If you cannot commit, do git stash then git stash apply in terminal
+
+
+# MODEL 8 #
+#ORs and CIs
+anova(Berlin_model8, Berlin_model1, test = "Chisq") #p = 0.7681
+summary(Berlin_model8)
+exp(Berlin_model8$coefficients)
+# Rejection.graft.dysfunction1 = 0.608255745
+# Recurrence.of.disease1 = 2.110853702
+# Time.from.transplant = 1.038912256
+# BMI = 1.180362045
+# Intercept = 0.004828451 
+
+# Calculate 95% CIs
+exp(confint(Berlin_model8))
+
+# (Intercept)                  0.000779685 0.02534669
+# BMI                          1.115592923 1.25585640
+# Time.from.transplant         0.981203461 1.10072234
+# Recurrence.of.disease1       1.047650271 4.30172982
+# Rejection.graft.dysfunction1 0.287825620 1.24092360
 
 
 
