@@ -5,7 +5,7 @@ library(dplyr)
 # Total prevalence of sleep disorder in the entire dataset
 
 total_sleepdis <- liver_data2$AIS.binary == "1" | liver_data2$ESS.binary == "1" | 
-              liver_data2$PSQI.binary == "1" | liver_data2$Berlin.Sleepiness.Scale == "1"
+  liver_data2$PSQI.binary == "1" | liver_data2$Berlin.Sleepiness.Scale == "1"
 
 sleepdis_count <- sum(total_sleepdis, na.rm = TRUE)
 missing_sleepdis <- sum(is.na(total_sleepdis))
