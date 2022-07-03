@@ -36,38 +36,47 @@ BSS <- liver_data2$Berlin.Sleepiness.Scale == "1"
 BSS_total <- sum(BSS, na.rm = TRUE)
 BSS_prev <- BSS_total / (nrow(liver_data2) - sum(is.na(BSS)))
 
-# Sensitivity, specificity, PPV, and NPV of AIS in relation to PSQI
+### Sensitivity, specificity, PPV, and NPV of AIS in relation to PSQI
+
+# Drop NAs
 PSQI_AIS <- liver_data2 %>%
   drop_na(c("PSQI.binary", "AIS.binary"))
-AandP = PSQI_AIS$AIS.binary == "1" & PSQI_AIS$PSQI.binary == "1"
-AandP_total = sum(AandP, na.rm = TRUE)
-table(liver_data2$AIS.binary == "1" & liver_data2$PSQI.binary == "1")
-AandP_prev = AandP_total / (nrow(liver_data2) - sum(is.na(AandP)))
-length(AandP)
-sum(AandP, na.rm = TRUE)
-(nrow(liver_data2) - sum(is.na(AandP)))
-AP_sensitivity = (AandP_prev*AIS_prev) / PSQI_prev # P(AIS|PSQI) = P(PSQI+|AIS+)*P(AIS) / P(PSQI)
-AP_specificity = ((1-AandP_prev)*(1-AIS_prev)) / (1-PSQI_prev) #P(AIS-|PSQI-) = P(PSQI-|AIS-)*P(AIS-) / P(PSQI-)
-AP_PPV = (AP_sensitivity*PSQI_prev) / AIS_prev  #P(PSQI+|AIS+) = P(AIS+|PSQI+)*P(PSQI) / P(AIS)
-AP_NPV = (AP_specificity*(1-PSQI_prev)) / (1-AIS_prev) #P(PSQI-|AIS-) = P(AIS-|PSQI-)*P(PSQI-) / P(AIS-)
 
-# Sensitivity, specificity, PPV, and NPV of AIS in relation to ESS
-AandE = liver_data2$AIS.binary == "1" & liver_data2$ESS.binary == "1" 
-AandE_total = sum(AndE, na.rm = TRUE) #total counts
-AandE_prev = AndE_total / (nrow(liver_data2) - sum(is.na(AndE)))
+AandP = PSQI_AIS$AIS.binary == "1" & PSQI_AIS$PSQI.binary == "1" # Find observations where both are positive for AIS and PSQI
+AandP_total = sum(AandP)
+AandP_prev = AandP_total / nrow(PSQI_AIS)  #P(AIS+ ^ PSQI+)
 
-AE_sensitivity = (AandE_prev*AIS_prev) / ESS_prev # P(AIS|ESS) = P(ESS+|AIS+)*P(AIS) / P(ESS)
-AE_specificity = ((1-AandE_prev)*(1-AIS_prev)) / (1-ESS_prev) #P(AIS-|ESS-) = 
-AE_PPV = (AE_sensitivity*ESS_prev) / AIS_prev  #P(ESS+|AIS+) = P(AIS+|ESS+)*P(ESS) / P(AIS)
-AE_NPV = (AE_specificity*(1-ESS_prev)) / (1-AIS_prev) #P(ESS-|AIS-) = P(AIS-|ESS-)*P(ESS-) / P(AIS-)
+AP_sensitivity = AandP_prev / PSQI_prev # P(AIS|PSQI) = P(AIS+ ^ PSQI+) / P(PSQI+)
+AP_specificity = (1-AandP_prev) / (1-PSQI_prev) # P(AIS-|PSQI-) = P(AIS- ^ PSQI-) / P(PSQI-)
+AP_PPV = AandP_prev / AIS_prev  #P(PSQI+|AIS+) = P(AIS+ ^ PSQI+) / P(AIS+)
+AP_NPV = (1-AandP_prev) / (1-AIS_prev) #P(PSQI-|AIS-) = P(AIS+ ^ PSQI+) / P(AIS-)
+
+### Sensitivity, specificity, PPV, and NPV of AIS in relation to ESS
+
+#Drop NAs
+ESS_AIS <- liver_data2 %>%
+  drop_na(c("ESS.binary", "AIS.binary"))
+
+AandE = ESS_AIS$AIS.binary == "1" & ESS_AIS$ESS.binary == "1" # Find observations where both are positive for AIS and ESS
+AandE_total = sum(AandE) 
+AandE_prev = AandE_total / nrow(ESS_AIS) #P(AIS+ ^ ESS+)
+
+AE_sensitivity = AandE_prev / ESS_prev # P(AIS|ESS) = P(AIS+ ^ ESS+) / P(ESS+)
+AE_specificity = (1-AandE_prev) / (1-ESS_prev) # P(AIS-|ESS-) = P(AIS- ^ ESS-) / P(ESS-)
+AE_PPV = AandE_prev / AIS_prev  #P(ESS+|AIS+) = P(AIS+ ^ ESS+) / P(AIS+)
+AE_NPV = (1-AandE_prev) / (1-AIS_prev) #P(ESS-|AIS-) = P(AIS+ ^ ESS+) / P(AIS-)
 
 # Sensitivity, specificity, PPV, and NPV of AIS in relation to BSS
-AandB = liver_data2$AIS.binary == "1" & liver_data2$Berlin.Sleepiness.Scale == "1"
-AandB_total = sum(AandB, na.rm = TRUE)
-AandB_prev = AandB_total / (nrow(liver_data2) - sum(is.na(AandB)))
+BSS_AIS <-
+  liver_data2 %>%
+  drop_na(c("Berlin.Sleepiness.Scale", "AIS.binary"))
 
-AB_sensitivity = (AandB_prev*AIS_prev) / BSS_prev # P(AIS|BSS) = P(BSS+|AIS+)*P(AIS) / P(BSS)
-AB_specificity = ((1-AandB_prev)*(1-AIS_prev)) / (1-BSS_prev) #P(AIS-|BSS-) = 
-AB_PPV = (AB_sensitivity*BSS_prev) / AIS_prev  #P(BSS+|AIS+) = P(AIS+|BSS+)*P(BSS) / P(AIS)
-AB_NPV = (AB_specificity*(1-BSS_prev)) / (1-AIS_prev) #P(BSS-|AIS-) = P(AIS-|BSS-)*P(BSS-) / P(AIS-)
+AandB = BSS_AIS$AIS.binary == "1" & BSS_AIS$Berlin.Sleepiness.Scale == "1"
+AandB_total = sum(AandB)
+AandB_prev = AandB_total / nrow(ESS_AIS) #P(AIS+ ^ BSS+)
+
+AB_sensitivity = AandB_prev / BSS_prev # P(AIS|BSS) = P(AIS+ ^ BSS+) / P(BSS+)
+AB_specificity = (1-AandB_prev) / (1-BSS_prev) # P(AIS-|BSS-) = P(AIS- ^ BSS-) / P(BSS-)
+AB_PPV = AandB_prev / AIS_prev  #P(BSS+|AIS+) = P(AIS+ ^ BSS+) / P(AIS+)
+AB_NPV = (1-AandB_prev) / (1-AIS_prev) #P(BSS-|AIS-) = P(AIS+ ^ BSS+) / P(AIS-)
 
