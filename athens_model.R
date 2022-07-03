@@ -119,7 +119,11 @@ anova(athens_mod8, athens_mod7, test = "Chisq")
 #Coritcoid, p = 0.13050
 summary(athens_mod8)
 
+<<<<<<< HEAD
 vif(athens_mod8) # All predictors have VIF < 5
+=======
+# MODEL 9 # -> BEST MODEL, DO SOME ADDITIONAL TESTS
+>>>>>>> 387fd89ef27d786d7436776331bb4e2e83ae6db4
 
 # MODEL 9 # -> BEST MODEL, DO SOME ADDITIONAL 
 
