@@ -66,8 +66,7 @@ AE_PPV = AandE_prev / AIS_prev  #P(ESS+|AIS+) = P(AIS+ ^ ESS+) / P(AIS+)
 AE_NPV = (AandE_neg_prev) / (1-AIS_prev) #P(ESS-|AIS-) = P(AIS+ ^ ESS+) / P(AIS-)
 
 # Sensitivity, specificity, PPV, and NPV of AIS in relation to BSS
-BSS_AIS <-
-  liver_data2 %>%
+BSS_AIS <- liver_data2 %>%
   drop_na(c("Berlin.Sleepiness.Scale", "AIS.binary"))
 
 AandB_prev = sum(BSS_AIS$AIS.binary == "1" & BSS_AIS$Berlin.Sleepiness.Scale == "1") / nrow(BSS_AIS) #P(AIS+ ^ BSS+)

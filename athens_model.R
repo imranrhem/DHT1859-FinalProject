@@ -119,11 +119,10 @@ anova(athens_mod8, athens_mod7, test = "Chisq")
 #Coritcoid, p = 0.13050
 summary(athens_mod8)
 
-<<<<<<< HEAD
+
 vif(athens_mod8) # All predictors have VIF < 5
-=======
 # MODEL 9 # -> BEST MODEL, DO SOME ADDITIONAL TESTS
->>>>>>> 387fd89ef27d786d7436776331bb4e2e83ae6db4
+
 
 # MODEL 9 # -> BEST MODEL, DO SOME ADDITIONAL 
 
@@ -158,7 +157,7 @@ test_model <- glm(AIS.binary ~ Age + Recurrence.of.disease + Depression + Cortic
                   data=liver_data2, family = "binomial") # All other response variables were tested, no signifcantly better model
 
 athens_model <- glm(AIS.binary ~ Age + Recurrence.of.disease + Depression, 
-                    data=na.omit(liver_data2[,all.vars(formula(test_model))]), family = "binomial")
+                    data=liver_data2, family = "binomial")
 
 anova(athens_model, test_model, test = "Chisq")
 
