@@ -16,22 +16,25 @@ total_prev <- sleepdis_count / (nrow(liver_data2) - missing_sleepdis)
 #AIS 
 AIS <- liver_data2$AIS.binary == "1"
 AIS_total <- sum(AIS, na.rm = TRUE)
-AIS_prev <- AIS_total / (nrow(liver_data2) - sum(is.na(AIS))) #remove amount of NAs prse in AIS from denominator
+AIS_prev <- AIS_total / (nrow(liver_data2) - sum(is.na(AIS))) #remove amount of NAs present in AIS from denominator
 
 #ESS
 ESS <- liver_data2$ESS.binary == "1"
 ESS_total <- sum(ESS, na.rm = TRUE)
-ESS_prev <- ESS_total / (nrow(liver_data2) - sum(is.na(ESS)))
+ESS_prev <- ESS_total / (nrow(liver_data2) - sum(is.na(ESS))) #remove amount of NAs present in ESS from denominator
+
 
 #PSQI
 PSQI <- liver_data2$PSQI.binary == "1"
 PSQI_total <- sum(PSQI, na.rm = TRUE)
-PSQI_prev <- PSQI_total / (nrow(liver_data2) - sum(is.na(PSQI)))
+PSQI_prev <- PSQI_total / (nrow(liver_data2) - sum(is.na(PSQI))) #remove amount of NAs present in PSQI from denominator
+
 
 #BSS
 BSS <- liver_data2$Berlin.Sleepiness.Scale == "1"
 BSS_total <- sum(BSS, na.rm = TRUE)
-BSS_prev <- BSS_total / (nrow(liver_data2) - sum(is.na(BSS)))
+BSS_prev <- BSS_total / (nrow(liver_data2) - sum(is.na(BSS))) #remove amount of NAs present in BSS from denominator
+
 
 ### Sensitivity, specificity, PPV, and NPV of AIS in relation to PSQI
 
@@ -47,7 +50,6 @@ AP_specificity = (AandP_neg_prev) / (1-PSQI_prev) # P(AIS-|PSQI-) = P(AIS- ^ PSQ
 AP_PPV = AandP_prev / AIS_prev  #P(PSQI+|AIS+) = P(AIS+ ^ PSQI+) / P(AIS+)
 AP_NPV = (AandP_neg_prev) / (1-AIS_prev) #P(PSQI-|AIS-) = P(AIS+ ^ PSQI+) / P(AIS-)
 
-table(c(PSQI_AIS$AIS.binary, PSQI_AIS$PSQI.binary))
 
 ### Sensitivity, specificity, PPV, and NPV of AIS in relation to ESS
 
