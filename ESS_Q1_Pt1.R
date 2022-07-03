@@ -17,7 +17,7 @@ prev_ESS <- 0.2669323
 #### ESS Sensitivity in relation to  PSQI ####
 
 # Probability of having a positive result on ESS, given a positive result on PSQI
-# P(ESS+|PSQI+) = P(PSQI+ & ESS+)* P(ESS+)/P(PSQI+)
+# P(ESS+|PSQI+) = P(PSQI+ & ESS+)/P(PSQI+)
 
 # Remove NAs rows 
 
@@ -35,7 +35,7 @@ length(which(ESS.binary == "1" & PSQI.binary == "1"))
 # 34 rows where pt who are positive for both the PSQI and the ESS 
 # Find proportion of those who tested positive for both PSQI and ESS
 
-34/179
+ESSp_PSQIp <- 34/179
 # P(PSQI+ & ESS+) = 0.1899441
 ESSp_PSQIp <- 0.1899441 
 
@@ -49,14 +49,14 @@ prev_PSQI <- 0.5464481
 # Final calculation 
 # P(ESS+|PSQI+) = P(PSQI+ & ESS+)/P(PSQI+)
 
-sens_ESS_PSQI <- ESSp_PSQIp*prev_ESS /prev_PSQI
+sens_ESS_PSQI <- ESSp_PSQIp/prev_PSQI
 sens_ESS_PSQI
-# The sensitivity of ESS in relation to the PSQI test is 0.09278505
+# The sensitivity of ESS in relation to the PSQI test is 0.3475977
 
 #### ESS sensitivity in relation to BSS ####
 
 # Probability of having a positive result on ESS, given a positive result on BSS
-# P(ESS+|BSS+) = P(BSS+ & ESS+)* P(ESS+)/P(BSS+)
+# P(ESS+|BSS+) = P(BSS+ & ESS+)/P(BSS+)
 
 # Remove NAs from BSS and ESS rows 
 
@@ -81,17 +81,17 @@ length(which(Berlin.Sleepiness.Scale == 1 & ESS.binary == 1))
 
 # Find proportion of those who tested positive for both ESS and BSS
 
-37/249
+ESSp_BSSp <-37/249 
 
 # P(BSS+ & ESS+) = 0.1485944
-ESSp_BSSp <-0.1485944
+ESSp_BSSp <- 0.1485944
 
-# P(ESS+|BSS+) = P(BSS+ & ESS+)* P(ESS+)/P(BSS+)
+# P(ESS+|BSS+) = P(BSS+ & ESS+)/P(BSS+)
 
-sens_ESS_BSS <- (ESSp_BSSp*prev_ESS)/prev_BSS
+sens_ESS_BSS <- ESSp_BSSp/prev_BSS
 sens_ESS_BSS
-# P(ESS+|BSS+) = 0.1018837
-# The sensitivity for ESS in relation to the BSS test is 0.1018837
+# P(ESS+|BSS+) =0.3816836
+# The sensitivity for ESS in relation to the BSS test is 0.3816836
 
 #### Calculate sensitivity of ESS in relation to AIS ####
 
@@ -125,17 +125,17 @@ ESSp_AISp <- 46/250
 # P(AIS+ & ESS+) = 0.184
 # P(ESS+|AIS+) = P(BSS+ & AIS+)|P(AIS+)
 
-sens_ESS_AIS <- (ESSp_AISp*prev_ESS)/prev_AIS
+sens_ESS_AIS <- ESSp_AISp/prev_AIS
 sens_ESS_AIS
 
-# P(ESS+|AIS+) = 0.08874671
-# The sensitivity for ESS in relation to the AIS test is 0.08874671
+# P(ESS+|AIS+) = 0.332469
+# The sensitivity for ESS in relation to the AIS test is 0.332469
 
 #### Calculate specificity of ESS in relation to all other tests ####
 
 #### Specificity of of ESS in relation to PSQI ####
 
-#P(ESS-|PSQI-) = P(PSQI- & ESS-)*P(1-P(ESS))/P(1-P(PSQI))
+#P(ESS-|PSQI-) = P(PSQI- & ESS-)/P(1-P(PSQI))
 
 attach(ESS_PSQI)
 
@@ -151,14 +151,14 @@ length(which(ESS.binary == "0" & PSQI.binary == "0"))
 ESSn_PSQIn <- 68/179
 # P(PSQI- & ESS-) = 0.3798883
 
-spec_ESS_PSQI <- (ESSn_PSQIn *(1-prev_ESS))/ (1-prev_PSQI)
+spec_ESS_PSQI <- (ESSn_PSQIn)/ (1-prev_PSQI)
 spec_ESS_PSQI
-# P(ESS-|PSQI-) = 0.6140065
-# The specificity of ESS in relation to PSQI is 0.6140065
+# P(ESS-|PSQI-) = 0.837585
+# The specificity of ESS in relation to PSQI is 0.837585
 
 #### Specificity of of ESS in relation to BSS ####
 
-#P(ESS-|BSS-) = P(BSS- & ESS-)*P(1-P(ESS))/P(1-P(BSS))
+#P(ESS-|BSS-) = P(BSS- & ESS-)/P(1-P(BSS))
 
 attach(ESS_BSS)
 
@@ -174,14 +174,14 @@ length(which(ESS.binary == "0" & Berlin.Sleepiness.Scale == "0"))
 ESSn_BSSn <- 123/249
 # P(BSS- & ESS-) =  0.4939759
 
-spec_ESS_BSS <- (ESSn_BSSn*(1-prev_ESS)) / (1-prev_BSS)
+spec_ESS_BSS <- (ESSn_BSSn)/ (1-prev_BSS)
 spec_ESS_BSS
-# P(ESS-|BSS-) = 0.5929679
-# The specificity of ESS in relation to BSS is 0.5929679
+# P(ESS-|BSS-) = 0.8088856
+# The specificity of ESS in relation to BSS is 0.8088856
 
 #### Specificity of of ESS in relation to AIS ####
 
-#P(ESS-|AIS-) = P(AIS- & ESS-)*P(1-P(ESS))/P(1-P(AIS))
+#P(ESS-|AIS-) = P(AIS- & ESS-)/P(1-P(AIS))
 
 attach(ESS_AIS)
 
@@ -198,50 +198,50 @@ ESSn_AISn <- 90/250
 # P(AIS- & ESS-) =  0.36
 
 
-spec_ESS_AIS <- (ESSn_AISn * (1-prev_ESS))/(1-prev_AIS)
+spec_ESS_AIS <- (ESSn_AISn)/(1-prev_AIS)
 spec_ESS_AIS
 
-# P(ESS-|AIS-) = 0.5909653
-# The specificity of ESS in relation to AIS is 0.5909653
+# P(ESS-|AIS-) = 0.8061538
+# The specificity of ESS in relation to AIS is 0.8061538
 
 #### Calculate NPV & PPV ####
 
 #### NPV of ESS in relation to PSQI ####
 
-#P(PSQI-|ESS-) = P(ESS-|PSQI-)*P(PSQI-) / P(ESS-)
-ESS_NPV_PSQI <- (spec_ESS_PSQI*(1-prev_PSQI)) / (1-prev_ESS) 
-# ESS_NPV_PSQI = 0.3798883
+#P(PSQI-|ESS-) = P(ESS-|PSQI-)/ P(ESS-)
+ESS_NPV_PSQI <- (ESSn_PSQIn) / (1-prev_ESS) 
+# ESS_NPV_PSQI = 0.5182172
 
 #### PPV of ESS in relation to PSQI ####
 
-#P(PSQI+|ESS+) = P(ESS+|PSQI+)*P(PSQI+) / P(ESS+)
-ESS_PPV_PSQI <- (sens_ESS_PSQI*prev_PSQI)/(prev_ESS)
-# ESS_PPV_PSQI = 0.1899441
+#P(PSQI+|ESS+) = P(ESS+|PSQI+)/ P(ESS+)
+ESS_PPV_PSQI <- (ESSp_PSQIp)/(prev_ESS)
+# ESS_PPV_PSQI = 0.7115816
 
 #### NPV of ESS in relation to BSS ####
 
-#P(BSS-|ESS-) = P(ESS-|BSS-)*P(BSS-) / P(ESS-)
-ESS_NPV_BSS <- (spec_ESS_BSS*(1-prev_BSS))/ (1-prev_ESS)
-# ESS_NPV_BSS = 0.4939759
+#P(BSS-|ESS-) = P(ESS-|BSS-)/ P(ESS-)
+ESS_NPV_BSS <- (ESSn_BSSn)/ (1-prev_ESS)
+# ESS_NPV_BSS = 0.6738476
 
 #### PPV of ESS in relation to BSS ####
 
-#P(BSS+|ESS+) = P(ESS+|BSS+)*P(BSS+) / P(ESS+)
-ESS_PPV_BSS <- (sens_ESS_BSS*prev_BSS)/(prev_ESS)
-# ESS_PPV_BSS = 0.1485944
+#P(BSS+|ESS+) = P(ESS+|BSS+)/ P(ESS+)
+ESS_PPV_BSS <- (ESSp_BSSp)/(prev_ESS)
+# ESS_PPV_BSS = 0.5566745
 
 #### NPV of ESS in relation to AIS ####
 
-#P(AIS-|ESS-) = P(ESS-|AIS-)*P(AID-) / P(ESS-)
-ESS_NPV_AIS <- (spec_ESS_AIS*(1-prev_AIS))/ (1-prev_ESS)
-ESS_NPV_AIS
-# ESS_NPV_AIS = 0.36
+#P(AIS-|ESS-) = P(ESS-|AIS-)/ P(ESS-)
+ESS_NPV_AIS <- (ESSn_AISn)/ (1-prev_ESS)
+
+# ESS_NPV_AIS = 0.491087
 
 #### PPV of ESS in relation to AIS ####
 
-#P(AIS+|ESS+) = P(ESS+|AIS+)*P(AIS+) / P(ESS+)
-ESS_PPV_AIS <- (sens_ESS_AIS*prev_AIS)/(prev_ESS)
-ESS_PPV_AIS
-# ESS_PPV_AIS = 0.184
+#P(AIS+|ESS+) = P(ESS+|AIS+)/ P(ESS+)
+ESS_PPV_AIS <- (ESSp_AISp)/(prev_ESS)
+
+# ESS_PPV_AIS = 0.6893134
 
 
