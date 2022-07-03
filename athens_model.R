@@ -111,7 +111,7 @@ anova(athens_mod8, athens_mod7, test = "Chisq")
 #Coritcoid, p = 0.13050
 summary(athens_mod8)
 
-# MODEL 9 # -> BEST MODEL, DO SOME ADDITIONAL TESTSßß
+# MODEL 9 # -> BEST MODEL, DO SOME ADDITIONAL TESTS
 
 athens_mod9 <- glm(AIS.binary ~ Age + Recurrence.of.disease + Depression, 
                             data=na.omit(liver_data2[,all.vars(formula(athens_mod1))]), family = "binomial")
