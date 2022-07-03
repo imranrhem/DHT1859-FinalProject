@@ -151,4 +151,3 @@ prop.table(table(liver_data2$PSQI.binary))
 
 
 
-
