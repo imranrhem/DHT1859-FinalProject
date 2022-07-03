@@ -9,7 +9,13 @@ library(ggplot2)
 plot.new()
 par(mfrow=c(2,1))
 plot(liver_data2$Athens.Insomnia.Scale, liver_data2$SF36.PCS)
+
+ggplot(liver_data2, aes(x = Athens.Insomnia.Scale, y = SF36.PCS)) + geom_point() + geom_smooth(method=lm, se = FALSE)
+
 plot(liver_data2$Athens.Insomnia.Scale, liver_data2$SF36.MCS)
+
+ggplot(liver_data2, aes(x = Athens.Insomnia.Scale, y = SF36.MCS)) + geom_point() + geom_smooth(method=lm, se = FALSE)
+
 dev.off()
 
 #Correlation tests
