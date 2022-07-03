@@ -91,10 +91,12 @@ modESS9 <- glm(ESS.binary~ Rejection.graft.dysfunction +
                  Depression + Corticoid, data=na.omit(liver_data2[,all.vars(formula(modESS))]), family = "binomial")
 
 summary(modESS9)
-# Rejection.graft.dysfunction appears to be the most significant predictor with 
-# a p-value = 0.0464
-# Depression - p-value = 0.1328
-# Corticoid - p-value = 0.2983
+# Rejection.graft.dysfunction appears to be the most significant predictor
+# Rejection.graft.dysfunction1   est = 0.6579, 0.0464 *  
+# Depression1                    est = 0.5148, 0.1328    
+# Corticoid1                     est = 0.3382, 0.2983  
+# (Intercept)                    est = -1.4027 3.17e-10 ***
+
 
 vif(modESS9) #df =3
 
@@ -123,7 +125,35 @@ exp(confint(modESS9))
 # H0: OR = 1 - that there is no association between predictors and response variable (ESS)
 # All predictor CIs contain 1, suggesting that we do not have strong evidence against the null hypothesis 
 
+## Make additional models with dif combos of predictors to see if can get to significance...
+
+# Adding Recurrence.of.disease back in
+modESS10 <- glm(ESS.binary~ Rejection.graft.dysfunction +
+                            Depression + Corticoid + Recurrence.of.disease, data=na.omit(liver_data2[,all.vars(formula(modESS))]), family = "binomial")
+
+summary(modESS10)
+# (Intercept)                   -1.5238     0.2437  -6.253 4.04e-10 ***
+# Rejection.graft.dysfunction1   est = 0.4730, p-value = 0.182    
+# Depression1                    est = 0.5162, p-value = 0.133    
+# Corticoid1                     est = 0.4354, p-value = 0.191    
+# Recurrence.of.disease1         est = 0.5045, p-value = 0.157
 
 
+anova(modESS10, modESS9, test = "Chisq")
+# P-value = 0.1604
+# Adding recurrence of disease increased the p-value in the anova but improved the p-value of Corticoid from 0.2983 in modESS9
+# to 0.191 in modESS10 but increased the p-value of Rejection.graft.dysfunction from 0.0464 to 0.182 
 
+#### Additional Predictions ####
 
+## Do additional testing on model - attempt to predict if positive on ESS based on setting certain predictors positive
+
+ESS_pred_df1 <- data.frame(Depression="1", Rejection.graft.dysfunction="1",Corticoid="1")
+
+predict(modESS9, newdata = ESS_pred_df1, type = "response")
+# My modESS9 predicts the probability of testing pos on ESS for someone who is pos on all 3 predictors is 0.5270167
+
+ESS_pred_df2 <- data.frame(Depression="1", Rejection.graft.dysfunction="1",Corticoid="1", Recurrence.of.disease = "1")
+
+predict(modESS10, newdata = ESS_pred_df2, type = "response")
+# My modESS10 predicts the probability of testing pos on ESS for someone pos in all 4 predictors is 0.599969
