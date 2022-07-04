@@ -42,7 +42,7 @@ prop.table(table(liver_data2$AIS.binary))
 
 
 ### P(PSQI+|BSS+) ###
-# P(PSQI+|BSS+) = P(PSQI+ and BSS+)/P(BSS+) = 0.799774
+# P(PSQI+|BSS+) = P(PSQI+ and BSS+)/P(BSS+) = 0.6492136
 
 # Drop rows with NA in the PSQI & BSS columns 
 PSQI_BSS <- liver_data2 %>%
