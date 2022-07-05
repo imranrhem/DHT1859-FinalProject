@@ -90,6 +90,9 @@ anova(modESS7, modESS8, test = "Chisq")
 modESS9 <- glm(ESS.binary~ Rejection.graft.dysfunction +
                  Depression + Corticoid, data=na.omit(liver_data2[,all.vars(formula(modESS))]), family = "binomial")
 
+modESS9 <- glm(ESS.binary~ Rejection.graft.dysfunction +
+                 Depression + Corticoid, data=liver_data2, family = "binomial")
+
 summary(modESS9)
 # Rejection.graft.dysfunction appears to be the most significant predictor with 
 # a p-value = 0.0464
@@ -101,6 +104,10 @@ vif(modESS9) #df =3
 anova(modESS8, modESS9, test = "Chisq")
 # p-value = 0.05017
 
+
+modESS9 <- glm(ESS.binary~ Rejection.graft.dysfunction +
+                 Depression + Corticoid, data=liver_data2, family = "binomial")
+summary(modESS9)
 ### ORs & CIs ####
 
 # ORs for model 9 - Rejection.graft.dysfunction + Depression + Corticoid

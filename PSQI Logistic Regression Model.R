@@ -124,7 +124,8 @@ anova(PSQI_mod6, PSQI_mod7, test = "Chisq")
 #' p = 0.09806, suggesting that the larger model (Model 6) does not fit data 
 #' significantly better than the smaller model (Model 7). Therefore, we fail to
 #' reject H0, and we adopt the smaller model (Model 7).
-
+exp(PSQI_mod7$coefficients)
+exp(confint(PSQI_mod7))
 vif(PSQI_mod6) # df = 6
 vif(PSQI_mod7) # df = 5
 
