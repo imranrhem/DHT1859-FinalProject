@@ -1,4 +1,4 @@
-# data cleaning and variables
+# CREATION OF NEW DATASET THAT INCLUDES VARIABLES OF INTEREST
 
 library(dplyr)
 library(tidyverse)
@@ -18,9 +18,9 @@ sapply(liver_data, class)
 
 # convert categorical variables to factors
 categorical <- c("Gender", "Liver.Diagnosis", "Recurrence.of.disease", "Rejection.graft.dysfunction",
-                 "Any.fibrosis", "Renal.Failure", "Depression", "Corticoid")
+                 "Any.fibrosis", "Renal.Failure", "Depression", "Corticoid", "Berlin.Sleepiness.Scale")
 
-liver_data[categorical] <- lapply(liver_data[categorical], factor)
+liver_data[,categorical] <- lapply(liver_data[,categorical], factor)
 sapply(liver_data, class)
 
 # inspect to see if there are any strange values that may not have been encoded by NA
@@ -34,10 +34,9 @@ liver_data2 <- liver_data %>%
 
 liver_data2[c("ESS.binary", "PSQI.binary", "AIS.binary")] <- lapply(liver_data2[c("ESS.binary", "PSQI.binary", "AIS.binary")], factor)
 
-nrow(liver_data2) / 15
+#Descriptive Statistics
+summary(liver_data2)
 
-table(liver_data2$ESS.binary) / 15
-table(liver_data2$PSQI.binary) / 15
-table(liver_data2$AIS.binary) / 15
-table(liver_data2$Berlin.Sleepiness.Scale)/15
+# Get standard deviations for numerical variables
+sapply(liver_data2[, unlist(lapply(liver_data2, is.numeric))], sd, na.rm = TRUE)
 
