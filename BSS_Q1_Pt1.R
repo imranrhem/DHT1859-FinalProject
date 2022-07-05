@@ -49,7 +49,7 @@ nrow(BSS_ESS)
 # Find proportion of positive tests for ESS
 
 prop.table(table(ESS.binary))
-# P(ESS+) = 0.2690763 
+# P(ESS+) = 0.2669323 
 
 # Find the number of pt who tested positive on both ESS and BSS
 
@@ -65,10 +65,10 @@ length(which(BSS_ESS$Berlin.Sleepiness.Scale == 1 & BSS_ESS$ESS.binary == 1))
 
 # P(ESS+|BSS+) = P(BSS+ & ESS+)|P(BSS+)
 
-BSSp_ESSp <- 0.1485944/0.269076
+BSSp_ESSp <- 0.1485944/0.2669323 
 BSSp_ESSp
-# P(BSS+|ESS+) = 0.5522395
-# The sensitivity for ESS in relation to the BSS test is 0.5522395
+# P(BSS+|ESS+) = 0.5566745
+# The sensitivity for ESS in relation to the BSS test is 0.5566745
 
 #### Calculate sensitivity of BSS in relation to AIS ####
 
@@ -156,18 +156,17 @@ length(which(BSS_AIS$Berlin.Sleepiness.Scale == 0 & BSS_AIS$AIS.binary == 0))
 # Find proportion of negative tests on AIS
 
 prop.table(table(AIS.binary))
-# P(AIS-) = 0.4444444
+# P(AIS-) = 0.4465649
 
-BSSn_AISn <- 0.3295019 / 0.4444444
+BSSn_AISn <- 0.3295019 / 0.4465649
 BSSn_AISn 
 
-# P(BSS-|AIS-) =  0.7413793
-# The Specificity of BSS in relation to AIS is  0.7413793
+# P(BSS-|AIS-) =  0.7378589
+# The Specificity of BSS in relation to AIS is 0.7378589
 
 #### Specificity of of BSS in relation to ESS ####
 
 #P(BSS-|ESS-) = P(ESS- & BSS-)|P(ESS-)
-
 
 # Get number of rows where ESS and BSS both = 0 
 
@@ -184,13 +183,13 @@ length(which(BSS_ESS$Berlin.Sleepiness.Scale == 0 & BSS_ESS$ESS.binary == 0))
 # Find proportion of negative tests on ESS
 
 prop.table(table(ESS.binary))
-# P(ESS-) = 0.7309237
+# P(ESS-) = 0.7330677
 
-BSSn_ESSn <- 0.4939759 / 0.7309237
+BSSn_ESSn <- 0.4939759 / 0.7330677
 BSSn_ESSn 
 
-# P(BSS-|ESS-) = 0.6758242
-# The Specificity of BSS in relation to ESS is 0.6758242
+# P(BSS-|ESS-) = 0.6738476
+# The Specificity of BSS in relation to ESS is 0.6738476
 
 #### Calculate PPV of BSS in relation to PSQI ####
 # P(PSQI+|BSS+) = P(PSQI+ & BSS+)|P(BSS+)

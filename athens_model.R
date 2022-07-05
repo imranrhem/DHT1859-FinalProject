@@ -154,15 +154,9 @@ vif(athens_mod10) # All predictors have VIF < 5
 
 ### MODEL 9 - best model, testing and coefficients
 
-names(liver_data2)
-
-test_model <- glm(AIS.binary ~ Age + Recurrence.of.disease + Depression + Corticoid, 
-                  data=liver_data2, family = "binomial") # All other response variables were tested, no signifcantly better model
 
 athens_model <- glm(AIS.binary ~ Age + Recurrence.of.disease + Depression, 
                     data=liver_data2, family = "binomial")
-
-anova(athens_model, test_model, test = "Chisq")
 
 summary(athens_model)
 

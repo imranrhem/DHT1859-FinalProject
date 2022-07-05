@@ -3,7 +3,7 @@
 library(dplyr)
 library(tidyverse)
 library(ggplot2)
-
+library(car)
 
 # Scatter plots of AIS scores and SF36.PCS/SF36.MCS scores
 plot.new()
@@ -30,6 +30,7 @@ linear_PCS <- lm(SF36.PCS~Athens.Insomnia.Scale+Epworth.Sleepiness.Scale+
                    Berlin.Sleepiness.Scale+Pittsburgh.Sleep.Quality.Index.Score,
                  data = liver_data2)
 
+
 summary(linear_PCS)
 
 # linear model testing - MCS
@@ -37,6 +38,7 @@ summary(linear_PCS)
 linear_MCS <- lm(SF36.MCS~Athens.Insomnia.Scale+Epworth.Sleepiness.Scale+
                    Berlin.Sleepiness.Scale+Pittsburgh.Sleep.Quality.Index.Score,
                  data = liver_data2)
+
 
 summary(linear_MCS)
 

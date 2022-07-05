@@ -119,7 +119,9 @@ vif(Berlin_model10)
 anova(Berlin_model9, Berlin_model10, test = "Chisq")  #p = 0.1899
 
 #If you cannot commit, do git stash then git stash apply in terminal
-
+Berlin_model8 <- glm(Berlin.Sleepiness.Scale ~ BMI + Time.from.transplant + 
+                       Recurrence.of.disease + Rejection.graft.dysfunction, 
+                     data=liver_data2, family = "binomial")
 
 # MODEL 8 #
 #ORs and CIs
