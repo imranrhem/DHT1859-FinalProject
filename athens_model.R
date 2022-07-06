@@ -2,7 +2,7 @@
 
 attach(liver_data2)
 library(car)
-
+library(MASS)
 # maximum dof = 7
 table(liver_data2$AIS.binary) / 15
 
@@ -14,6 +14,9 @@ athens_mod1 <- glm(AIS.binary~
                       Renal.Failure + Depression + Corticoid, data = liver_data2, family = "binomial")
 
 vif(athens_mod1) # All predictors have VIF < 5
+
+
+
 
 # Gender2, p = 0.8608
 summary(athens_mod1)
@@ -151,15 +154,9 @@ vif(athens_mod10) # All predictors have VIF < 5
 
 ### MODEL 9 - best model, testing and coefficients
 
-names(liver_data2)
-
-test_model <- glm(AIS.binary ~ Age + Recurrence.of.disease + Depression + Corticoid, 
-                  data=liver_data2, family = "binomial") # All other response variables were tested, no signifcantly better model
 
 athens_model <- glm(AIS.binary ~ Age + Recurrence.of.disease + Depression, 
                     data=liver_data2, family = "binomial")
-
-anova(athens_model, test_model, test = "Chisq")
 
 summary(athens_model)
 

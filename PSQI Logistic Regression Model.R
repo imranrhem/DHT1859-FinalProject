@@ -110,8 +110,8 @@ anova(PSQI_mod5, PSQI_mod6, test = "Chisq")
 vif(PSQI_mod5) # df = 7
 vif(PSQI_mod6) # df = 6
 
-# Model 7: Rejection.graft.dysfunction removed (largest p = 0.10208).
-PSQI_mod7 <- glm(PSQI.binary ~ Gender + Age + Recurrence.of.disease + Depression + Corticoid, 
+# Model 7: Age removed (p = 0.07423).
+PSQI_mod7 <- glm(PSQI.binary ~ Gender + Recurrence.of.disease + Depression + Corticoid, 
                  data = na.omit(liver_data2[,all.vars(formula(PSQI_mod1))]), 
                  family = "binomial")
 
@@ -121,10 +121,11 @@ summary(PSQI_mod7)
 anova(PSQI_mod6, PSQI_mod7, test = "Chisq")
 
 #' H0: the smaller model (Model 7) is the correct model.
-#' p = 0.09806, suggesting that the larger model (Model 6) does not fit data 
+#' p = 0.0537, suggesting that the larger model (Model 6) does not fit data 
 #' significantly better than the smaller model (Model 7). Therefore, we fail to
 #' reject H0, and we adopt the smaller model (Model 7).
-
+exp(PSQI_mod7$coefficients)
+exp(confint(PSQI_mod7))
 vif(PSQI_mod6) # df = 6
 vif(PSQI_mod7) # df = 5
 
